@@ -21,9 +21,15 @@
     "@vue/cli-plugin-eslint": "^3.0.0-rc.10",
     "@vue/cli-service": "^3.0.0-rc.10",
     "@vue/eslint-config-prettier": "^3.0.0-rc.10",
+    "eslint-plugin-prettier": "^2.6.2",
     "node-sass": "^4.9.2",
+    "prettier": "^1.14.2",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.16"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
   },
   "eslintConfig": {
     "root": true,
@@ -34,15 +40,11 @@
       "plugin:vue/essential",
       "@vue/prettier"
     ],
+    "plugins": [
+      "prettier"
+    ],
     "rules": {
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ],
-      "quotes": [
-        "error",
-        "single"
-      ]
+      "prettier/prettier": "warn"
     },
     "parserOptions": {
       "parser": "babel-eslint"

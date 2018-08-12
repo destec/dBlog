@@ -8,18 +8,21 @@
       <Menu></Menu>
     </el-col>
     <el-col :span="20">
-      <router-view></router-view>
+      <!-- <router-view></router-view> -->
+      <List></List>
     </el-col>
   </el-row>
 </template>
 
 <script>
 // @ is an alias to /src
+import List from '@/components/List.vue';
 import Menu from '@/components/Menu.vue';
 
 export default {
   name: 'home',
   components: {
+    List,
     Menu,
   },
   data() {
