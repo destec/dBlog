@@ -10,6 +10,8 @@
   "dependencies": {
     "element-ui": "^2.4.5",
     "font-awesome": "^4.7.0",
+    "ipfs-api": "^23.0.0",
+    "orbit-db": "^0.19.9",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

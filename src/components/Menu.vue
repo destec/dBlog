@@ -55,8 +55,6 @@ export default {
 }
 .attachment {
   margin-top: 4rem;
-  margin-left: 4rem;
-  text-align: center;
 }
 .attachment-item {
   color: white;
