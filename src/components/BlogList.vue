@@ -20,10 +20,8 @@
 </template>
 
 <script>
-import authorDb from '@/api/db.js';
-
 export default {
-  name: 'List',
+  name: 'BlogList',
   data() {
     return {
       tableData: [

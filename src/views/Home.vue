@@ -9,20 +9,20 @@
     </el-col>
     <el-col :span="20">
       <!-- <router-view></router-view> -->
-      <List></List>
+      <BlogList></BlogList>
     </el-col>
   </el-row>
 </template>
 
 <script>
 // @ is an alias to /src
-import List from '@/components/List.vue';
+import BlogList from '@/components/BlogList.vue';
 import Menu from '@/components/Menu.vue';
 
 export default {
   name: 'home',
   components: {
-    List,
+    BlogList,
     Menu,
   },
   data() {
