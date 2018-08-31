@@ -48,5 +48,10 @@ export default {
       ],
     };
   },
+  async mounted() {
+    console.log(this);
+    const authors = await this.$http.get('http://localhost:7001/');
+    console.log(authors);
+  },
 };
 </script>
