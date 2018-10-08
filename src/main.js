@@ -1,9 +1,16 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './plugins/element.js'
+import Vue from 'vue';
+import App from './App.vue';
+import { i18n } from './plugins/i18n.js';
+import { Element } from './plugins/element.js';
+import router from './router';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.use(Element, {
+  i18n: (key, value) => i18n.t(key, value),
+});
 
 new Vue({
-  render: h => h(App)
-}).$mount('#app')
+  router,
+  i18n,
+  render: h => h(App),
+}).$mount('#app');
