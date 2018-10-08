@@ -11,6 +11,18 @@
         <template>{{ $t('login-form-tip-password') }}</template>
         <el-input v-model="loginForm.password" type="password"></el-input>
       </el-form-item>
+      <el-form-item label="language">
+        <template>
+          <el-select v-model="lang" placeholder="English" @change="changeLang">
+            <el-option v-for="item in languages" :key="item.value" :value="item.name">
+              <span style="float: left">{{ item.name }}</span>
+              <span style="float: right;">
+                <flag :iso="item.flag"></flag>
+              </span>
+            </el-option>
+          </el-select>
+        </template>
+      </el-form-item>
       <el-form-item style="margin-bottom: 2rem;">
         <template>{{ $t('login-form-tip-remember') }}</template>
         <el-switch v-model="loginForm.remember" style="display: block;"></el-switch>
@@ -25,6 +37,7 @@
 </template>
 
 <script>
+import { find } from 'lodash';
 export default {
   data() {
     return {
@@ -33,6 +46,11 @@ export default {
         password: '',
         remember: false,
       },
+      lang: 'English',
+      languages: [
+        { value: 'en-US', name: 'English', flag: 'us' },
+        { value: 'zh-CN', name: '中文', flag: 'cn' },
+      ],
     };
   },
   methods: {
@@ -41,6 +59,13 @@ export default {
       this.loginForm.keystore = '';
       this.loginForm.password = '';
       this.loginForm.remember = false;
+    },
+    changeLang(value) {
+      const langItem = find(
+        this.languages,
+        candidate => candidate.name === value,
+      );
+      this.$i18n.locale = langItem.value;
     },
   },
 };
