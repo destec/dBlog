@@ -54,7 +54,27 @@ export default {
     };
   },
   methods: {
-    submit() {},
+    async submit() {
+      try {
+        const resp = await this.$http.post(
+          'http://localhost:7070/signin/ethreum',
+        );
+        if (resp.body.result === 'success') {
+          this.$router.push('home');
+        } else {
+          this.$message({
+            message: 'login failed',
+            type: 'warning',
+          });
+        }
+      } catch (err) {
+        // console.error(err);
+        this.$message({
+          message: err,
+          type: 'error',
+        });
+      }
+    },
     clear() {
       this.loginForm.keystore = '';
       this.loginForm.password = '';
