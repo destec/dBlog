@@ -13,9 +13,9 @@
       </el-form-item>
       <el-form-item label="language">
         <template>
-          <el-select v-model="lang" placeholder="English" @change="changeLang">
-            <el-option v-for="item in languages" :key="item.value" :value="item.name">
-              <span style="float: left">{{ item.name }}</span>
+          <el-select v-model="language" placeholder="English" @change="changeLang">
+            <el-option v-for="item in locales" :key="item.value" :value="item.language">
+              <span style="float: left">{{ item.language }}</span>
               <span style="float: right;">
                 <flag :iso="item.flag"></flag>
               </span>
@@ -37,20 +37,18 @@
 </template>
 
 <script>
-import { find } from 'lodash';
 export default {
   data() {
+    const locales = this.$store.state.i18n.locales;
+    const language = this.$store.state.i18n.locale.language;
     return {
       loginForm: {
         keystore: '',
         password: '',
         remember: false,
       },
-      lang: 'English',
-      languages: [
-        { value: 'en-US', name: 'English', flag: 'us' },
-        { value: 'zh-CN', name: '中文', flag: 'cn' },
-      ],
+      language,
+      locales,
     };
   },
   methods: {
@@ -81,11 +79,9 @@ export default {
       this.loginForm.remember = false;
     },
     changeLang(value) {
-      const langItem = find(
-        this.languages,
-        candidate => candidate.name === value,
-      );
-      this.$i18n.locale = langItem.value;
+      this.$store.dispatch('i18n/changeLocaleByLanguage', value);
+      this.langFlag = this.$store.state.i18n.locale.flag;
+      this.$i18n.locale = this.$store.state.i18n.locale.value;
     },
   },
 };

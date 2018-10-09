@@ -7,7 +7,21 @@
             <img src="https://tabler.github.io/tabler/demo/brand/tabler.svg" class="header-brand-img" alt="tabler logo">
           </a>
         </el-col>
-        <el-col :xs="{span: 10, offset: 8}" :sm="{span: 6, offset: 10}">
+        <el-col :xs="{span: 4, offset: 4}" :sm="{span: 2, offset: 10}">
+          <!-- <el-dropdown type="default" @command="changeLang" size="medium" class="header-i18n"> -->
+          <el-dropdown @command="changeLang" class="header-i18n">
+            <el-button type="default">
+              <flag :iso="langFlag"></flag>
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-for="item in locales" :key="item.value" :command="item.value">
+                <flag :iso="item.flag"></flag> {{ item.language }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </el-col>
+        <el-col :xs="{span: 10, offset: 0}" :sm="{span: 3, offset: 0}">
           <el-dropdown placement="bottom" class="header-identifier">
             <img src="https://tabler.github.io/tabler/demo/faces/female/25.jpg" class="avatar"/>
             <span class="text">
@@ -26,7 +40,7 @@
       </el-row>
       <el-row class="header-nav">
         <el-col :xs="{span: 24, offset: 0}" :sm="{span: 20, offset: 2}">
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+          <el-menu :default-active="activeIndex" mode="horizontal" @select="handleSelect">
             <!-- <el-menu-item index="1">New Post</el-menu-item> -->
             <el-menu-item index="1">My Posts</el-menu-item>
             <el-menu-item index="2"></el-menu-item>
@@ -43,7 +57,6 @@
               </el-submenu>
             </el-submenu>
             <el-menu-item index="3" disabled>消息中心</el-menu-item>
-            <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
           </el-menu>
         </el-col>
       </el-row>
@@ -61,13 +74,22 @@
 export default {
   name: 'home',
   data() {
+    const locales = this.$store.state.i18n.locales;
+    const langFlag = this.$store.state.i18n.locale.flag;
     return {
       activeIndex: '1',
+      langFlag,
+      locales,
     };
   },
   methods: {
     handleSelect(key, path) {
       // console.log(key, path);
+    },
+    changeLang(value) {
+      this.$store.dispatch('i18n/changeLocale', value);
+      this.langFlag = this.$store.state.i18n.locale.flag;
+      this.$i18n.locale = this.$store.state.i18n.locale.value;
     },
   },
 };
@@ -93,6 +115,9 @@ export default {
   font-size: 1.25rem;
   white-space: nowrap;
   line-height: 2rem;
+}
+.header-i18n {
+  float: right;
 }
 .header-identifier {
   float: right;
